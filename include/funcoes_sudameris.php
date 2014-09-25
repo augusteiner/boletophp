@@ -1,11 +1,11 @@
 <?php
 // +----------------------------------------------------------------------+
-// | BoletoPhp - Vers„o Beta                                              |
+// | BoletoPhp - Vers√£o Beta                                              |
 // +----------------------------------------------------------------------+
-// | Este arquivo est· disponÌvel sob a LicenÁa GPL disponÌvel pela Web   |
+// | Este arquivo est√° dispon√≠vel sob a Licen√ßa GPL dispon√≠vel pela Web   |
 // | em http://pt.wikipedia.org/wiki/GNU_General_Public_License           |
-// | VocÍ deve ter recebido uma cÛpia da GNU Public License junto com     |
-// | esse pacote; se n„o, escreva para:                                   |
+// | Voc√™ deve ter recebido uma c√≥pia da GNU Public License junto com     |
+// | esse pacote; se n√£o, escreva para:                                   |
 // |                                                                      |
 // | Free Software Foundation, Inc.                                       |
 // | 59 Temple Place - Suite 330                                          |
@@ -13,20 +13,24 @@
 // +----------------------------------------------------------------------+
 
 // +----------------------------------------------------------------------+
-// | Originado do Projeto BBBoletoFree que tiveram colaboraÁıes de Daniel |
+// | Originado do Projeto BBBoletoFree que tiveram colabora√ß√µes de Daniel |
 // | William Schultz e Leandro Maniezo que por sua vez foi derivado do	  |
-// | PHPBoleto de Jo„o Prado Maia e Pablo Martins F. Costa				  |
+// | PHPBoleto de Jo√£o Prado Maia e Pablo Martins F. Costa				  |
 // | 																	  |
 // | Se vc quer colaborar, nos ajude a desenvolver p/ os demais bancos :-)|
 // | Acesse o site do Projeto BoletoPhp: www.boletophp.com.br             |
 // +----------------------------------------------------------------------+
 
 // +----------------------------------------------------------------------+
-// | Equipe CoordenaÁ„o Projeto BoletoPhp: <boletophp@boletophp.com.br>   |
-// | Desenvolvimento Boleto Sudameris: Fl·vio Yutaka Nakamura             |
+// | Equipe Coordena√ß√£o Projeto BoletoPhp: <boletophp@boletophp.com.br>   |
+// | Desenvolvimento Boleto Sudameris: Fl√°vio Yutaka Nakamura             |
 // +----------------------------------------------------------------------+
 
 
+namespace byelsystems\boletophp;
+
+function init(array &$dadosboleto)
+{
 $codigobanco         = "347";
 $codigo_banco_com_dv = geraCodigoBanco($codigobanco);
 $nummoeda            = "9";
@@ -34,14 +38,14 @@ $fator_vencimento    = fator_vencimento($dadosboleto["data_vencimento"]);
 
 //valor tem 10 digitos, sem virgula
 $valor    = formata_numero($dadosboleto["valor_boleto"], 10, 0, "valor");
-//agencia È 4 digitos
+//agencia √© 4 digitos
 $agencia  = formata_numero($dadosboleto["agencia"], 4, 0);
-//conta È 7 digitos
+//conta √© 7 digitos
 $conta    = formata_numero($dadosboleto["conta"], 7, 0);
-//nosso n˙mero: 13 digitos
+//nosso n√∫mero: 13 digitos
 $nossonum = formata_numero($dadosboleto["nosso_numero"], 13, 0);
 
-// Calcula o Digit„o da CobranÁa
+// Calcula o Digit√£o da Cobran√ßa
 $digitao = modulo_10($nossonum . $agencia . $conta);
 if ($digitao == 10) $digitao = 0;
 
@@ -56,8 +60,11 @@ $dadosboleto["agencia_codigo"]      = $agencia . '/' . $conta . '/' . $digitao;
 $dadosboleto["nosso_numero"]        = $nossonum;
 $dadosboleto["codigo_banco_com_dv"] = $codigo_banco_com_dv;
 
-// FUN«’ES
+// FUN√á√ïES
 // Algumas foram retiradas do Projeto PhpBoleto e modificadas para atender as particularidades de cada banco
+
+
+}
 
 function formata_numero($numero,$loop,$insert,$tipo = "geral") {
 	if ($tipo == "geral") {
@@ -159,7 +166,7 @@ src=imagens/p.png width=<?php echo $largo?> height=<?php echo $altura?> border=0
 src=imagens/b.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
 src=imagens/p.png width=<?php echo 1?> height=<?php echo $altura?> border=0> 
   <?php
-} //Fim da funÁ„o
+} //Fim da fun√ß√£o
 
 function esquerda($entra,$comp){
 	return substr($entra,0,$comp);
@@ -206,7 +213,7 @@ function modulo_10($num) {
             // pega cada numero isoladamente
             $numeros[$i] = substr($num,$i-1,1);
             // Efetua multiplicacao do numero pelo (falor 10)
-            // 2002-07-07 01:33:34 Macete para adequar ao Mod10 do Ita˙
+            // 2002-07-07 01:33:34 Macete para adequar ao Mod10 do Ita√∫
             $temp = $numeros[$i] * $fator; 
             $temp0=0;
             foreach (preg_split('//',$temp,-1,PREG_SPLIT_NO_EMPTY) as $k=>$v){ $temp0+=$v; }
@@ -220,7 +227,7 @@ function modulo_10($num) {
             }
         }
 		
-        // v·rias linhas removidas, vide funÁ„o original
+        // v√°rias linhas removidas, vide fun√ß√£o original
         // Calculo do modulo 10
         $resto = $numtotal10 % 10;
         $digito = 10 - $resto;
@@ -237,22 +244,22 @@ function modulo_11($num, $base=9, $r=0)  {
      *   Autor:
      *           Pablo Costa <pablo@users.sourceforge.net>
      *
-     *   FunÁ„o:
+     *   Fun√ß√£o:
      *    Calculo do Modulo 11 para geracao do digito verificador 
      *    de boletos bancarios conforme documentos obtidos 
      *    da Febraban - www.febraban.org.br 
      *
      *   Entrada:
-     *     $num: string numÈrica para a qual se deseja calcularo digito verificador;
+     *     $num: string num√©rica para a qual se deseja calcularo digito verificador;
      *     $base: valor maximo de multiplicacao [2-$base]
      *     $r: quando especificado um devolve somente o resto
      *
-     *   SaÌda:
+     *   Sa√≠da:
      *     Retorna o Digito verificador.
      *
-     *   ObservaÁıes:
-     *     - Script desenvolvido sem nenhum reaproveitamento de cÛdigo prÈ existente.
-     *     - Assume-se que a verificaÁ„o do formato das vari·veis de entrada È feita antes da execuÁ„o deste script.
+     *   Observa√ß√µes:
+     *     - Script desenvolvido sem nenhum reaproveitamento de c√≥digo pr√© existente.
+     *     - Assume-se que a verifica√ß√£o do formato das vari√°veis de entrada √© feita antes da execu√ß√£o deste script.
      */                                        
 
     $soma = 0;
@@ -294,15 +301,15 @@ function geraCodigoBanco($numero) {
 }
 
 function monta_linha_digitavel($dados) {
-	// Padr„o: Sudameris
-	// POSI«√O	CONTE⁄DO
-	// 1 a 3	N˙mero do banco
-	// 4		CÛdigo da Moeda
-	// 5 a 8	AgÍncia
+	// Padr√£o: Sudameris
+	// POSI√á√ÉO	CONTE√öDO
+	// 1 a 3	N√∫mero do banco
+	// 4		C√≥digo da Moeda
+	// 5 a 8	Ag√™ncia
 	// 9 a 15	Conta
-	// 16		Digit„o
-	// 17 a 29	Nosso n˙mero
-	// 30		DÌgito do cÛdigo de barra
+	// 16		Digit√£o
+	// 17 a 29	Nosso n√∫mero
+	// 30		D√≠gito do c√≥digo de barra
 	// 31 a 34	Fator de vencimento
 	// 35 a 44	Valor
 
@@ -322,4 +329,4 @@ function monta_linha_digitavel($dados) {
 	else
 		return '';
 }
-?>
+

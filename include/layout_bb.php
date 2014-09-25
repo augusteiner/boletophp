@@ -1,11 +1,11 @@
 <?php
 // +----------------------------------------------------------------------+
-// | BoletoPhp - Versão Beta                                              |
+// | BoletoPhp - VersÃ£o Beta                                              |
 // +----------------------------------------------------------------------+
-// | Este arquivo está disponível sob a Licença GPL disponível pela Web   |
+// | Este arquivo estÃ¡ disponÃ­vel sob a LicenÃ§a GPL disponÃ­vel pela Web   |
 // | em http://pt.wikipedia.org/wiki/GNU_General_Public_License           |
-// | Você deve ter recebido uma cópia da GNU Public License junto com     |
-// | esse pacote; se não, escreva para:                                   |
+// | VocÃª deve ter recebido uma cÃ³pia da GNU Public License junto com     |
+// | esse pacote; se nÃ£o, escreva para:                                   |
 // |                                                                      |
 // | Free Software Foundation, Inc.                                       |
 // | 59 Temple Place - Suite 330                                          |
@@ -13,26 +13,29 @@
 // +----------------------------------------------------------------------+
 
 // +----------------------------------------------------------------------+
-// | Originado do Projeto BBBoletoFree que tiveram colaborações de Daniel |
+// | Originado do Projeto BBBoletoFree que tiveram colaboraÃ§Ãµes de Daniel |
 // | William Schultz e Leandro Maniezo que por sua vez foi derivado do	  |
-// | PHPBoleto de João Prado Maia e Pablo Martins F. Costa                |
+// | PHPBoleto de JoÃ£o Prado Maia e Pablo Martins F. Costa                |
 // |                                                                      |
 // | Se vc quer colaborar, nos ajude a desenvolver p/ os demais bancos :-)|
 // | Acesse o site do Projeto BoletoPhp: www.boletophp.com.br             |
 // +----------------------------------------------------------------------+
 
 // +---------------------------------------------------------------------------------+
-// | Equipe Coordenação Projeto BoletoPhp: <boletophp@boletophp.com.br>              |
+// | Equipe CoordenaÃ§Ã£o Projeto BoletoPhp: <boletophp@boletophp.com.br>              |
 // | Desenvolvimento Boleto Banco do Brasil: Daniel William Schultz / Leandro Maniezo|
 // +---------------------------------------------------------------------------------+
+
+namespace byelsystems\boletophp;
+
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
 <title><?php echo $dadosboleto["identificacao"]; ?></title>
-<META http-equiv=Content-Type content=text/html charset=ISO-8859-1>
-<meta name="Generator" content="Projeto BoletoPHP - www.boletophp.com.br - Licença GPL" />
+<META http-equiv=Content-Type content=text/html charset=UTF-8>
+<meta name="Generator" content="Projeto BoletoPHP - www.boletophp.com.br - LicenÃ§a GPL" />
 	
 <style type="text/css">
 <!--
@@ -501,7 +504,7 @@ div.barcode {
 
 	<div id="">
 <!--
-  Use no lugar do <div id=""> caso queira imprimir sem o logotipo e instruções
+  Use no lugar do <div id=""> caso queira imprimir sem o logotipo e instruÃ§Ãµes
   <div id="instructions">
  -->
 		
@@ -695,7 +698,7 @@ do Sacado</b></div></TD></tr></tbody></table>
 		<tr class="titulos">
 			<td class="reservado">Uso do  banco</td>
 			<td class="carteira">Carteira</td>
-			<td class="especie2">Espécie</td>
+			<td class="especie2">EspÃ©cie</td>
 			<td class="qtd2">Quantidade</td>
 			<td class="xvalor">x Valor</td>
 			<td class="valor_doc2">(=) Valor documento</td>
@@ -831,7 +834,7 @@ do Sacado</b></div></TD></tr></tbody></table>
 		</tr>
 		</tbody>
 		</table>		
-    <table cellspacing=0 cellpadding=0 width=666 border=0><TBODY><TR><TD width=666 align=right ><font style="font-size: 10px;">Autentica&ccedil;&atilde;o mec&acirc;nica - Ficha de Compensação</font></TD></tr></tbody></table>
+    <table cellspacing=0 cellpadding=0 width=666 border=0><TBODY><TR><TD width=666 align=right ><font style="font-size: 10px;">Autentica&ccedil;&atilde;o mec&acirc;nica - Ficha de CompensaÃ§Ã£o</font></TD></tr></tbody></table>
 		<div class="barcode">
 			<p><?php fbarcode($dadosboleto["codigo_barras"]); ?></p>
 		</div>
