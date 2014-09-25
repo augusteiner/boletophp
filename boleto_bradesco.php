@@ -41,7 +41,7 @@ $valor_boleto=number_format($valor_cobrado+$taxa_boleto, 2, ',', '');
 
 $dadosboleto = array(
     "nosso_numero" => "75896452",  // Nosso numero sem o DV - REGRA: Máximo de 11 caracteres!
-    "numero_documento" => $dadosboleto["nosso_numero"],    // Num do pedido ou do documento = Nosso numero
+    "numero_documento" => "75896452",    // Num do pedido ou do documento = Nosso numero
     "data_vencimento" => $data_venc, // Data de Vencimento do Boleto - REGRA: Formato DD/MM/AAAA
     "data_documento" => date("d/m/Y"), // Data de emissão do Boleto
     "data_processamento" => date("d/m/Y"), // Data de processamento do boleto (opcional)
