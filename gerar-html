@@ -1,0 +1,6 @@
+#!/bin/sh
+
+time=$(date --rfc-3339='seconds')
+
+mkdir -p gen/html-{new,old}
+ls boleto_*.php | xargs -i wget localhost/boletophp/{} -O gen/html-new/{}.html 2> gen/geracao.log
