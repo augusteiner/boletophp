@@ -6,3 +6,4 @@ if (!isset($get))
 }
 
 include "{$get['b']}.php";
+
