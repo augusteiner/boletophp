@@ -1,6 +1,23 @@
-#!/bin/sh
+#!/bin/sh -e
 
-time=$(date --rfc-3339='seconds')
+#time=$(date --rfc-3339='seconds')
 
-mkdir -p gen/html-{new,old}
-ls boleto_*.php | xargs -i wget localhost/boletophp/{} -O gen/html-new/{}.html 2> gen/geracao.log
+data=$1
+port=8080
+root="boletophp"
+
+mkdir -p gen/html-novo
+mkdir -p gen/html-velho
+
+echo "Gerando html para data $data"
+
+ls boleto_*.php | \
+  cut -d '.' -f 1 | \
+  xargs -i wget "localhost:$port/$root/dev.php?b={}&d=$data" \
+    -O gen/html-novo/{}.html -o gen/geracao.log
+
+echo "Html gerado"
+
+echo "Abrindo ferramenta de diff"
+
+meld gen/html-novo gen/html-velho &
