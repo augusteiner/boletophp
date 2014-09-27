@@ -367,7 +367,7 @@ do Sacado</b></div></TD></tr></tbody></table><table width=666 cellspacing=5 cell
 		<td width=333 class=ct>Sacador/Avalista</td>
 		<td width=333 class=ct align=right>Autenticação mecânica - <span class=cp>Ficha de Compensação</span></td>
 	</tr>
-	<tr><td height=50 colspan=2><?php fbarcode($dadosboleto["codigo_barras"]); ?></td></tr>
+	<tr><td height=50 colspan=2><?php $boleto->fbarcode($dadosboleto["codigo_barras"]); ?></td></tr>
 	<tr><td colspan=2 class=ct align=right>Corte na linha pontilhada</td></tr>
 	<tr><td colspan=2 height=1><img src=imagens/6.png width=665 height=1></td></tr>
 </table>

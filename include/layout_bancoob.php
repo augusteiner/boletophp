@@ -836,7 +836,7 @@ div.barcode {
 		</div>
 
 		<div class="barcode">
-			<p><?php fbarcode($dadosboleto["codigo_barras"]); ?></p>
+			<p><?php $boleto->fbarcode($dadosboleto["codigo_barras"]); ?></p>
 		</div>
 
 		<div class="cut">

@@ -93,6 +93,7 @@ $dadosboleto = array(
 // NÃO ALTERAR!
 include("include/funcoes_banestes.php"); 
 
-init($dadosboleto);
+$boleto = new BoletoBanestes();
+$boleto->init($dadosboleto);
 
 include("include/layout_banestes.php");

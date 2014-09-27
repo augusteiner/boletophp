@@ -97,6 +97,7 @@ $dadosboleto = array(
 // NÃO ALTERAR!
 include("include/funcoes_bancoob.php");
 
-init($dadosboleto);
+$boleto = new BoletoBancoob();
+$boleto->init($dadosboleto);
 
 include("include/layout_bancoob.php");

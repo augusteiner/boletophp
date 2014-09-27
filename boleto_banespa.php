@@ -87,8 +87,9 @@ $dadosboleto = array(
 );
 
 // NÃO ALTERAR!
-include("include/funcoes_banespa.php"); 
+include("include/funcoes_banespa.php");
 
-init($dadosboleto);
+$boleto = new BoletoBanespa();
+$boleto->init($dadosboleto);
 
 include("include/layout_banespa.php");

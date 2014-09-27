@@ -101,6 +101,7 @@ $dadosboleto = array(
 // NÃO ALTERAR!
 include("include/funcoes_cef_sigcb.php"); 
 
-init($dadosboleto);
+$boleto = new BoletoCaixaSigcb();
+$boleto->init($dadosboleto);
 
 include("include/layout_cef.php");

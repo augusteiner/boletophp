@@ -94,6 +94,7 @@ $dadosboleto = array(
 // NÃO ALTERAR!
 include("include/funcoes_bradesco.php");
 
-init($dadosboleto);
+$boleto = new BoletoBradesco();
+$boleto->init($dadosboleto);
 
 include("include/layout_bradesco.php");

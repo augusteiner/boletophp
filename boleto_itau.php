@@ -91,6 +91,7 @@ $dadosboleto = array(
 // NÃO ALTERAR!
 include("include/funcoes_itau.php"); 
 
-init($dadosboleto);
+$boleto = new BoletoItau();
+$boleto->init($dadosboleto);
 
 include("include/layout_itau.php");

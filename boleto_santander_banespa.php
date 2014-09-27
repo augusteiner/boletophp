@@ -89,6 +89,7 @@ $dadosboleto = array(
 // NÃO ALTERAR!
 include("include/funcoes_santander_banespa.php"); 
 
-init($dadosboleto);
+$boleto = new BoletoSantanderBanespa();
+$boleto->init($dadosboleto);
 
 include("include/layout_santander_banespa.php");
