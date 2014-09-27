@@ -13,8 +13,8 @@ echo "Gerando html para data $data"
 
 ls boleto_*.php | \
   cut -d '.' -f 1 | \
-  xargs -i wget "localhost:$port/$root/dev.php?b={}&d=$data" \
-    -O gen/html-novo/{}.html -o gen/geracao.log
+  xargs -i curl "localhost:$port/$root/dev.php?b={}&d=$data" \
+    -o gen/html-novo/{}.html 2> gen/geracao.log
 
 echo "Html gerado"
 
