@@ -88,6 +88,7 @@ $dadosboleto = array(
 // NÃO ALTERAR!
 include("include/funcoes_real.php"); 
 
-init($dadosboleto);
+$boleto = new BoletoReal();
+$boleto->init($dadosboleto);
 
 include("include/layout_real.php");

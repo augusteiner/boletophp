@@ -97,6 +97,7 @@ $dadosboleto = array(
 // NÃO ALTERAR!
 include("include/funcoes_cef_sinco.php"); 
 
-init($dadosboleto);
+$boleto = new BoletoCaixaSinco();
+$boleto->init($dadosboleto);
 
 include("include/layout_cef_sinco.php");

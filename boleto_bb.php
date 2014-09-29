@@ -118,6 +118,7 @@ DESENVOLVIDO PARA CARTEIRA 18
 // NÃO ALTERAR!
 include("include/funcoes_bb.php"); 
 
-init($dadosboleto);
+$boleto = new BoletoBancoBrasil();
+$boleto->init($dadosboleto);
 
 include("include/layout_bb.php");

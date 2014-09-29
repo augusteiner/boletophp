@@ -92,6 +92,7 @@ $dadosboleto = array(
 // NÃO ALTERAR!
 include("include/funcoes_unibanco.php"); 
 
-init($dadosboleto);
+$boleto = new BoletoUnibanco();
+$boleto->init($dadosboleto);
 
 include("include/layout_unibanco.php");

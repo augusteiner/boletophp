@@ -14,7 +14,7 @@
 
 // +----------------------------------------------------------------------+
 // | Originado do Projeto BBBoletoFree que tiveram colaborações de Daniel |
-// | William Schultz e Leandro Maniezo que por sua vez foi derivado do	  |
+// | William Schultz e Leandro Maniezo que por sua vez foi derivado do      |
 // | PHPBoleto de João Prado Maia e Pablo Martins F. Costa                |
 // |                                                                      |
 // | Se vc quer colaborar, nos ajude a desenvolver p/ os demais bancos :-)|
@@ -26,60 +26,60 @@
 // | Desenvolvimento Boleto Bradesco: Ramon Soares                        |
 // +----------------------------------------------------------------------+
 
+namespace byelsystems\boletophp;
+
 /**
  * Boleto Sofisa para carteira 121
  *
  * @package     BoletoPhp
  * @author      Diego M. Agudo ( diego@agudo.eti.br )
  */
-
-
-namespace byelsystems\boletophp;
-
+class BoletoSofisa
+{
 function init(array &$dadosboleto)
 {
 $codigobanco            = "637";
-$codigo_banco_com_dv    = geraCodigoBanco($codigobanco);
+$codigo_banco_com_dv    = $this->geraCodigoBanco($codigobanco);
 $nummoeda               = "9";
-$fator_vencimento       = fator_vencimento($dadosboleto["data_vencimento"]);
+$fator_vencimento       = $this->fator_vencimento($dadosboleto["data_vencimento"]);
 
 //valor tem 10 digitos, sem virgula
-$valor = formata_numero($dadosboleto["valor_boleto"],10,0,"valor");
+$valor = $this->formata_numero($dadosboleto["valor_boleto"],10,0,"valor");
 //agencia é 4 digitos
-$agencia = formata_numero($dadosboleto["agencia"],4,0);
+$agencia = $this->formata_numero($dadosboleto["agencia"],4,0);
 //conta é 6 digitos
-$conta = formata_numero($dadosboleto["conta"],6,0);
+$conta = $this->formata_numero($dadosboleto["conta"],6,0);
 //dv da conta
-$conta_dv = formata_numero($dadosboleto["conta_dv"],1,0);
+$conta_dv = $this->formata_numero($dadosboleto["conta_dv"],1,0);
 //carteira é 3 caracteres
-$carteira = formata_numero($dadosboleto["carteira"],3,0);
+$carteira = $this->formata_numero($dadosboleto["carteira"],3,0);
 //nosso numero é 10 caracteres
-$nosso_numero = formata_numero($dadosboleto["nosso_numero"],10,0);
+$nosso_numero = $this->formata_numero($dadosboleto["nosso_numero"],10,0);
 
 //nosso número (sem dv) é 10 digitos
 $nnum = $agencia.$agencia_dv.$carteira.$nosso_numero;
 
 //dv do nosso número
-$dv_nosso_numero = digitoVerificador_nossonumero($nnum);
+$dv_nosso_numero = $this->digitoVerificador_nossonumero($nnum);
 
 //conta cedente (sem dv) é 6 digitos
-$conta_cedente = formata_numero($dadosboleto["conta_cedente"],6,0);
+$conta_cedente = $this->formata_numero($dadosboleto["conta_cedente"],6,0);
 //dv da conta cedente
-$conta_cedente_dv = formata_numero($dadosboleto["conta_cedente_dv"],1,0);
+$conta_cedente_dv = $this->formata_numero($dadosboleto["conta_cedente_dv"],1,0);
 
 // Numero para o codigo de barras com 44 digitos
 $linha    = "$codigobanco$nummoeda"."0"."$fator_vencimento$valor$agencia$carteira$conta_cedente$conta_cedente_dv$nosso_numero$dv_nosso_numero";
-$dv       = digitoVerificador_barra($linha);
+$dv       = $this->digitoVerificador_barra($linha);
 
-// Alterando a posição 4(digito '0') para o $dv
+// Alterando a posição $this->4(digito '0') para o $dv
 $linha[4] = $dv;
 
 $nossonumero    = $carteira."/".$nosso_numero;
 $agencia_codigo = $agencia."-".$dadosboleto["agencia_dv"]." / ". $conta_cedente ."-". $conta_cedente_dv;
 
 $dadosboleto["codigo_barras"]       = $linha;
-$dadosboleto["linha_digitavel"]     = monta_linha_digitavel($linha);
-#$dadosboleto["linha_digitavel"]    = monta_linha_digitavel($codigobanco ,$nummoeda ,$dv ,$fator_vencimento ,$valor ,$agencia ,$carteira ,$conta_cedente, $conta_cedente_dv ,$nosso_numero ,$dv_nosso_numero);
+$dadosboleto["linha_digitavel"]     = $this->monta_linha_digitavel($linha);
+#$dadosboleto["linha_digitavel"]    = $this->monta_linha_digitavel($codigobanco ,$nummoeda ,$dv ,$fator_vencimento ,$valor ,$agencia ,$carteira ,$conta_cedente, $conta_cedente_dv ,$nosso_numero ,$dv_nosso_numero);
 $dadosboleto["agencia_codigo"]      = $agencia_codigo;
 $dadosboleto["nosso_numero"]        = $nossonumero;
 $dadosboleto["codigo_banco_com_dv"] = $codigo_banco_com_dv;
@@ -91,11 +91,11 @@ function digitoVerificador_nossonumero($numero) {
     $fator = 2;
     $soma  = 0;
     
-    for($i = 0; $i < strlen($numero); $i++) {
-        if($fator == 2) {
+    for ($i = 0; $i < strlen($numero); $i++) {
+        if ($fator == 2) {
             $aux = $numero[$i] * $fator;
             #echo $aux;
-            if($aux > 9) {
+            if ($aux > 9) {
                 $aux .= "";
                 $soma += $aux[0] + $aux[1];
             } else {
@@ -106,7 +106,7 @@ function digitoVerificador_nossonumero($numero) {
         } else {
             $aux = $numero[$i] * $fator;
             #echo $aux;
-            if($aux > 9) {
+            if ($aux > 9) {
                 $aux .= "";
                 $soma += $aux[0] + $aux[1];
             } else {
@@ -146,7 +146,7 @@ function digitoVerificador_barra($numero) {
 function formata_numero($numero,$loop,$insert,$tipo = "geral") {
     if ($tipo == "geral") {
         $numero = str_replace(",","",$numero);
-        while(strlen($numero)<$loop){
+        while (strlen($numero)<$loop){
             $numero = $insert . $numero;
         }
     }
@@ -157,12 +157,12 @@ function formata_numero($numero,$loop,$insert,$tipo = "geral") {
         preenche com zeros
         */
         $numero = str_replace(",","",$numero);
-        while(strlen($numero)<$loop){
+        while (strlen($numero)<$loop){
             $numero = $insert . $numero;
         }
     }
     if ($tipo == "convenio") {
-        while(strlen($numero)<$loop){
+        while (strlen($numero)<$loop){
             $numero = $numero . $insert;
         }
     }
@@ -186,11 +186,11 @@ function fbarcode($valor){
     $barcodes[7] = "00011" ;
     $barcodes[8] = "10010" ;
     $barcodes[9] = "01010" ;
-    for($f1=9;$f1>=0;$f1--) {
-        for($f2=9;$f2>=0;$f2--) {
+    for ($f1=9;$f1>=0;$f1--) {
+        for ($f2=9;$f2>=0;$f2--) {
           $f = ($f1 * 10) + $f2 ;
           $texto = "" ;
-          for($i=1;$i<6;$i++) {
+          for ($i=1;$i<6;$i++) {
             $texto .=  substr($barcodes[$f1],($i-1),1) . substr($barcodes[$f2],($i-1),1);
           }
           $barcodes[$f] = $texto;
@@ -207,16 +207,16 @@ src=imagens/p.png width=<?php echo $fino?> height=<?php echo $altura?> border=0>
 src=imagens/b.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
 <?php
 $texto = $valor ;
-if((strlen($texto) % 2) <> 0){
+if ((strlen($texto) % 2) <> 0){
     $texto = "0" . $texto;
 }
 
 // Draw dos dados
 while (strlen($texto) > 0) {
-  $i = round(esquerda($texto,2));
-  $texto = direita($texto,strlen($texto)-2);
+  $i = round($this->esquerda($texto,2));
+  $texto = $this->direita($texto,strlen($texto)-2);
   $f = $barcodes[$i];
-  for($i=1;$i<11;$i+=2){
+  for ($i=1;$i<11;$i+=2){
     if (substr($f,($i-1),1) == "0") {
       $f1 = $fino ;
     }else{
@@ -257,7 +257,7 @@ function fator_vencimento($data) {
     $ano = $data[2];
     $mes = $data[1];
     $dia = $data[0];
-    return(abs((_dateToDays("1997","10","07")) - (_dateToDays($ano, $mes, $dia))));
+    return (abs(($this->_dateToDays("1997","10","07")) - ($this->_dateToDays($ano, $mes, $dia))));
 }
 
 function _dateToDays($year,$month,$day) {
@@ -375,15 +375,15 @@ function modulo_11($num, $base=9, $r=0)  {
  */
  /*
 function monta_linha_digitavel($codigobanco ,$nummoeda ,$dv ,$fator_vencimento ,$valor ,$agencia ,$carteira ,$conta_cedente, $conta_cedente_dv ,$nosso_numero ,$dv_nosso_numero) {
-    $mod10  =  modulo_10($codigobanco.$nummoeda.$agencia.$carteira[0]);
+    $mod10  =  $this->modulo_10($codigobanco.$nummoeda.$agencia.$carteira[0]);
     $campo1 = $codigobanco.$nummoeda.$agencia.$carteira[0].$mod10;
     $campo1 = substr($campo1, 0, 5) .".".substr($campo1, 5, 5);
      
-    $mod10  = modulo_10(substr($carteira, 1, 2).$conta_cedente.$conta_cedente_dv.$nosso_numero[0]);
+    $mod10  = $this->modulo_10(substr($carteira, 1, 2).$conta_cedente.$conta_cedente_dv.$nosso_numero[0]);
     $campo2 = substr($carteira, 1, 2).$conta_cedente.$conta_cedente_dv.$nosso_numero[0].$mod10;
     $campo2 = substr($campo2, 0, 5) .".". substr($campo2, 5, 6);
     
-    $mod10  = modulo_10(substr($nosso_numero, 1, 9).$dv_nosso_numero);
+    $mod10  = $this->modulo_10(substr($nosso_numero, 1, 9).$dv_nosso_numero);
     $campo3 = substr($nosso_numero, 1, 9).$dv_nosso_numero.$mod10;
     $campo3 = substr($campo3, 0, 5) .".". substr($campo3, 5, 6);
     
@@ -397,10 +397,10 @@ function monta_linha_digitavel($codigobanco ,$nummoeda ,$dv ,$fator_vencimento ,
 
 
 function monta_linha_digitavel($codigo) {
-    // Posição 	Conteúdo
-    // 1 a 3    Número do banco
-    // 4        Código da Moeda - 9 para Real
-    // 5        Digito verificador do Código de Barras
+    // Posição Conteúdo
+    // 1 a 3   Número do banco
+    // 4       Código da Moeda - 9 para Real
+    // 5       Digito verificador do Código de Barras
     // 6 a 9   Fator de Vencimento
     // 10 a 19 Valor (8 inteiros e 2 decimais)
     // 20 a 44 Campo Livre definido por cada banco (25 caracteres)
@@ -409,7 +409,7 @@ function monta_linha_digitavel($codigo) {
     // do campo livre e DV (modulo10) deste campo
     $p1     = substr($codigo, 0, 4);
     $p2     = substr($codigo, 19, 5);
-    $p3     = modulo_10("$p1$p2");
+    $p3     = $this->modulo_10("$p1$p2");
     $p4     = "$p1$p2$p3";
     $p5     = substr($p4, 0, 5);
     $p6     = substr($p4, 5);
@@ -418,7 +418,7 @@ function monta_linha_digitavel($codigo) {
     // 2. Campo - composto pelas posiçoes 6 a 15 do campo livre
     // e livre e DV (modulo10) deste campo
     $p1     = substr($codigo, 24, 10);
-    $p2     = modulo_10($p1);
+    $p2     = $this->modulo_10($p1);
     $p3     = "$p1$p2";
     $p4     = substr($p3, 0, 5);
     $p5     = substr($p3, 5);
@@ -427,7 +427,7 @@ function monta_linha_digitavel($codigo) {
     // 3. Campo composto pelas posicoes 16 a 25 do campo livre
     // e livre e DV (modulo10) deste campo
     $p1     = substr($codigo, 34, 10);
-    $p2     = modulo_10($p1);
+    $p2     = $this->modulo_10($p1);
     $p3     = "$p1$p2";
     $p4     = substr($p3, 0, 5);
     $p5     = substr($p3, 5);
@@ -448,7 +448,7 @@ function monta_linha_digitavel($codigo) {
 
 function geraCodigoBanco($numero) {
     $parte1 = substr($numero, 0, 3);
-    $parte2 = modulo_11($parte1);
+    $parte2 = $this->modulo_11($parte1);
     return $parte1 . "-" . $parte2;
 }
-
+}

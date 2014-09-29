@@ -86,6 +86,7 @@ $dadosboleto = array(
 // NÃO ALTERAR!
 include("include/funcoes_hsbc.php"); 
 
-init($dadosboleto);
+$boleto = new BoletoHsbc();
+$boleto->init($dadosboleto);
 
 include("include/layout_hsbc.php");

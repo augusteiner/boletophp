@@ -102,6 +102,7 @@ $dadosboleto = array(
 // NÃO ALTERAR!
 include("include/funcoes_sofisa.php"); 
 
-init($dadosboleto);
+$boleto = new BoletoSofisa();
+$boleto->init($dadosboleto);
 
 include("include/layout_sofisa.php");

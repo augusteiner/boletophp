@@ -101,6 +101,7 @@ $dadosboleto = array(
 // NÃO ALTERAR!
 include("include/funcoes_sicredi.php"); 
 
-init($dadosboleto);
+$boleto = new BoletoSicredi();
+$boleto->init($dadosboleto);
 
 include("include/layout_sicredi.php");

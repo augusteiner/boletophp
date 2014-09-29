@@ -115,6 +115,7 @@ PC  Parcela de Consórcio
 // NÃO ALTERAR!
 include("include/funcoes_sudameris.php");
 
-init($dadosboleto);
+$boleto = new BoletoSudameris();
+$boleto->init($dadosboleto);
 
 include("include/layout_sudameris.php");

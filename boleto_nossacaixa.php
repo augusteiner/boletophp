@@ -96,6 +96,7 @@ $dadosboleto = array(
 // NÃO ALTERAR!
 include("include/funcoes_nossacaixa.php"); 
 
-init($dadosboleto);
+$boleto = new BoletoNossaCaixa();
+$boleto->init($dadosboleto);
 
 include("include/layout_nossacaixa.php");

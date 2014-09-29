@@ -96,6 +96,7 @@ $dadosboleto = array(
 // NÃO ALTERAR!
 include("include/funcoes_cef.php"); 
 
-init($dadosboleto);
+$boleto = new BoletoCaixa();
+$boleto->init($dadosboleto);
 
 include("include/layout_cef.php");

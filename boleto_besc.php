@@ -87,8 +87,9 @@ $dadosboleto = array(
 );
 
 // NÃO ALTERAR!
-include("include/funcoes_besc.php"); 
+include("include/funcoes_besc.php");
 
-init($dadosboleto);
+$boleto = new BoletoBesc();
+$boleto->init($dadosboleto);
 
 include("include/layout_besc.php");
